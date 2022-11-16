@@ -1,3 +1,4 @@
+// bài 2 : Nhập các thông tin của 1 sinh viên gồm mã sinh viên, họ tên, tuổi, năm sinh,
 package HomeWord;
 import java.awt.*;
 import java.util.Scanner;

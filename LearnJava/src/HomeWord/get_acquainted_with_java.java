@@ -1,5 +1,5 @@
 package HomeWord;
-
+// bài 1 xuất thông tin ra màn hình
 public class get_acquainted_with_java {
     public static void main(String[] args){
         String name = "Phạm tuấn huy";
