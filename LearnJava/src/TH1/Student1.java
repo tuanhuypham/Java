@@ -2,7 +2,6 @@ package TH1;
 import java.awt.*;
 import java.util.Scanner;
 public class Student1 {
-    private boolean update = false;
     private String name;
     private float dtb;
     private String id;
@@ -11,7 +10,7 @@ public class Student1 {
     public void input(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap vao ten :");
-        this.name = scanner.next();
+        this.name = scanner.nextLine();
         //
         System.out.print("Nhap vao tuoi sinh vien : ");
         this.age = scanner.nextInt();
@@ -23,23 +22,12 @@ public class Student1 {
         this.dtb = scanner.nextFloat();
     }
     public void output(){
-        if(this.update){
-            System.out.println("Thong tin sinh vien da duoc cap nhat");
-        } else {
-            System.out.println("[Thong tin Sinh Vien]");
-        }
         System.out.println("Ten sinh vien : "+this.getName());
         System.out.println("Tuoi : "+this.getAge());
         System.out.println("Ma so sinh vien : "+this.getId());
         System.out.println("Diem trung binh sinh vien : "+this.getDtb());
     }
-    public void upDate(){
-        this.update =  true;
-        System.out.print("Doi ho ten sinh vien : ");
-        Scanner scanner = new Scanner(System.in);
-        this.name = scanner.next();
-        this.output();
-    }
+
     public void rank(){
         if(this.dtb < 5){
             System.out.println("Xep loai : Yeu");
@@ -78,10 +66,29 @@ public class Student1 {
         if(age >= 1 && age <= 150)
             this.age = age;
     }
-    public boolean isUpdate() {
-        return update;
+}
+class ListStudent{
+    private Student1 list[];
+    private int amount;
+
+    public void inputList(){
+        System.out.println("-----=====Nhap danh sach sinh vien-----=====");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhap so luong sinh vien vao danh sach : ");
+        amount = scanner.nextInt();
+        list = new  Student1[amount];
+        for(int i = 0 ; i < amount ;i++){
+            System.out.printf("Sinh vien thu %d\n",i+1);
+            list[i] = new Student1();
+            list[i].input();
+        }
     }
-    public void setUpdate(boolean update) {
-        this.update = update;
+    public void oututList(){
+        System.out.println("-----=====Danh sach sinh vien-----=====");
+        for(int i = 0 ; i < amount ;i++){
+            System.out.printf("Sinh vien thu %d\n",i+1);
+            list[i].output();
+            list[i].rank();
+        }
     }
 }
