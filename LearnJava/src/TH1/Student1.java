@@ -72,7 +72,7 @@ class ListStudent{
     private int amount;
 
     public void inputList(){
-        System.out.println("-----=====Nhap danh sach sinh vien-----=====");
+        System.out.println("-----=====Nhap danh sach sinh vien=====-----");
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap so luong sinh vien vao danh sach : ");
         amount = scanner.nextInt();
@@ -82,6 +82,18 @@ class ListStudent{
             list[i] = new Student1();
             list[i].input();
         }
+    }
+    public void sort(){
+        for(int i = 0 ; i < amount ; i++){
+            for(int j = i+1; j <amount; j++){
+                if(list[i].getDtb() > list[j].getDtb()){
+                    Student1 index =list[i];
+                    list[i] = list[j];
+                    list[j] = index;
+                }
+            }
+        }
+        oututList();
     }
     public void oututList(){
         System.out.println("-----=====Danh sach sinh vien-----=====");
