@@ -1,12 +1,10 @@
 package TH1;
-import java.awt.*;
 import java.util.Scanner;
-public class Student1 {
+public class Student {
     private String name;
     private float dtb;
     private String id;
     private int age;
-
     public void input(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap vao ten :");
@@ -27,7 +25,6 @@ public class Student1 {
         System.out.println("Ma so sinh vien : "+this.getId());
         System.out.println("Diem trung binh sinh vien : "+this.getDtb());
     }
-
     public void rank(){
         if(this.dtb < 5){
             System.out.println("Xep loai : Yeu");
@@ -65,42 +62,5 @@ public class Student1 {
     public void setAge(int age) {
         if(age >= 1 && age <= 150)
             this.age = age;
-    }
-}
-class ListStudent{
-    private Student1 list[];
-    private int amount;
-
-    public void inputList(){
-        System.out.println("-----=====Nhap danh sach sinh vien=====-----");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap so luong sinh vien vao danh sach : ");
-        amount = scanner.nextInt();
-        list = new  Student1[amount];
-        for(int i = 0 ; i < amount ;i++){
-            System.out.printf("Sinh vien thu %d\n",i+1);
-            list[i] = new Student1();
-            list[i].input();
-        }
-    }
-    public void sort(){
-        for(int i = 0 ; i < amount ; i++){
-            for(int j = i+1; j <amount; j++){
-                if(list[i].getDtb() > list[j].getDtb()){
-                    Student1 index =list[i];
-                    list[i] = list[j];
-                    list[j] = index;
-                }
-            }
-        }
-        oututList();
-    }
-    public void oututList(){
-        System.out.println("-----=====Danh sach sinh vien-----=====");
-        for(int i = 0 ; i < amount ;i++){
-            System.out.printf("Sinh vien thu %d\n",i+1);
-            list[i].output();
-            list[i].rank();
-        }
     }
 }
