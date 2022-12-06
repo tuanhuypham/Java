@@ -145,9 +145,25 @@ class DSHANGHOA{
         this.n = n;
         ds = new HANGHOA[n];
     }
+    public void themMH(){
+
+    }
+
 }
 class demo{
     public static void main(String[] args) {
+        byte chon = 0;
+        Scanner doc = new Scanner(System.in);
+        DSHANGHOA dshs = new DSHANGHOA();
+        HANGHOA h;
+        do {
+            System.out.println("1 : them mot mat hang vao danh sahc :");
+            System.out.println("2 : xuat mat hang theo loai :");
+            System.out.println("0 : thoat.");
+            System.out.println("chon chuc nang :");
+            switch (chon){
 
+            }
+        }while (chon != 0);
     }
 }
