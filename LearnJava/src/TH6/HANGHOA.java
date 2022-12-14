@@ -6,7 +6,6 @@ public class HANGHOA {
     protected String id;
     protected String nameProduct;
     protected long price;
-
     public String getId() {
         return id;
     }
@@ -50,7 +49,7 @@ public class HANGHOA {
         System.out.print("Gia hang hoa : ");
         this.price = scanner.nextLong();
     }
-    public void uotput(){
+    public void output(){
         System.out.println("Ma hang : "+id);
         System.out.println("Ten hang : "+nameProduct);
         System.out.println("Gia hang : "+price+" VND");
@@ -72,7 +71,7 @@ class HANGDM extends HANGHOA{
         this.dienap = dienap;
         this.congsuat = congsuat;
     }
-    public void nhap(){
+    public void input(){
         super.input();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap vao han bao hanh : ");
@@ -82,10 +81,12 @@ class HANGDM extends HANGHOA{
         System.out.print("cong suat : ");
         this.congsuat = scanner.nextInt();
     }
-    public void xuat(){
-        System.out.println("----Thong tin hang hoa dien may ----");
-        super.uotput();
-        System.out.println("Thoi han bao hanh la "+hanbaohanh+" nam");
+    public void output(){
+        System.out.println("----==========----");
+        super.output();
+        System.out.println("Thoi han bao hanh la "+hanbaohanh);
+        System.out.println("Dien ap : "+dienap+" V");
+        System.out.println("Cong suat : "+congsuat+" W");
     }
 }
 class HANGTP extends HANGHOA{
@@ -107,7 +108,6 @@ class HANGTP extends HANGHOA{
     public int getNgaysx() {
         return ngaysx;
     }
-
     public void setNgaysx(int ngaysx) {
         this.ngaysx = ngaysx;
     }
@@ -119,50 +119,104 @@ class HANGTP extends HANGHOA{
     public void setNgayhethan(int ngayhethan) {
         this.ngayhethan = ngayhethan;
     }
-    public void nhap(){
+    public void input(){
         super.input();
         Scanner scanner  = new Scanner(System.in);
-        System.out.print("ngay san xuat");
+        System.out.print("ngay san xuat : ");
         this.ngaysx = scanner.nextInt();
         System.out.print("ngay het han : ");
         this.ngayhethan = scanner.nextInt();
     }
-    public void xuat(){
-        super.uotput();
+    public void output(){
+        System.out.println("----==========----");
+        super.output();
         System.out.println("Ngay san xuat : "+ngaysx);
         System.out.println("ngay het han : "+ngayhethan);
     }
 }
 class DSHANGHOA{
-    private int n;
-    private HANGHOA ds[];
-
-    public DSHANGHOA(){
-        n = 0;
-        ds = new HANGHOA[n];
+    private int n = 0;
+    private HANGHOA ds[] = new HANGHOA[100];
+    public void NhapHangHoa(){
+        int chon = 0 ;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhap vao so luong hang hoa : ");
+        n = scanner.nextInt();
+        for (int i = 0 ; i < n ; i ++){
+            System.out.println("Chon nhap hang hoa hay dien may TP : 0, DM :1 : ");
+            chon = scanner.nextInt();
+            if(chon == 1){
+                ds[i] = new HANGDM();
+                ds[i].input();
+            }
+            else if (chon == 0){
+                ds[i] = new HANGTP();
+                ds[i].input();
+            }
+        }
     }
-    public DSHANGHOA(int n){
-        this.n = n;
-        ds = new HANGHOA[n];
-    }
-    public void themMH(){
-
-    }
-
+   public void XuatHangHoa(){
+        for (int i = 0 ; i < n ; i++){
+            ds[i].output();
+        }
+   }
+   public void XuatTheoLoai(int loai){
+        if(loai == 2 ){
+            for(int i = 0 ;i < n  ; i++){
+                if (ds[i] instanceof HANGDM){
+                    System.out.println("----Thong tin hang hoa dien may ----");
+                    ds[i].output();
+                }
+            }
+        }
+        else if (loai == 1){
+            for(int i = 0 ;i < n  ; i++){
+                if(ds[i] instanceof HANGTP){
+                    System.out.println("----Thong tin hang thuc pham----");
+                    ds[i].output();
+                }
+            }
+        }
+   }
+   public void themMotHangHoa(HANGHOA h){
+        ds[n] = h;
+        n++;
+   }
 }
 class demo{
     public static void main(String[] args) {
-        byte chon = 0;
+        byte chon;
         Scanner doc = new Scanner(System.in);
-        DSHANGHOA dshs = new DSHANGHOA();
+        DSHANGHOA dshh = new DSHANGHOA();
         HANGHOA h;
         do {
-            System.out.println("1 : them mot mat hang vao danh sahc :");
-            System.out.println("2 : xuat mat hang theo loai :");
-            System.out.println("0 : thoat.");
-            System.out.println("chon chuc nang :");
+            System.out.println("1 them mot hang hoa vao danh sach : ");
+            System.out.println("2 xua mat hang theo loai : ");
+            System.out.println("0 thoat : ");
+            System.out.println("moi chon chuc nang : ");
+            chon = doc.nextByte();
             switch (chon){
-
+                case 1:
+                    h = new HANGHOA();
+                    System.out.println("1 hang diem may, 2 hang thuc pham, hay chon mat hang : ");
+                    byte loai = doc.nextByte();
+                    if (loai ==1){
+                        h = new HANGDM();
+                    }
+                    else if(loai == 2){
+                        h = new HANGTP();
+                    }
+                    h.input();
+                    dshh.themMotHangHoa(h);
+                    break;
+                case 2:
+                    System.out.println("Xuat danh sach theo loai mat hang : Hang thuc pham 1, Hang dien may 2 : ");
+                    int type = doc.nextInt();
+                    dshh.XuatTheoLoai(type);
+                    break;
+                default:
+                    if (chon ==0)
+                        System.out.println("Cam on da su dung chuong trinh !!!!!!");break;
             }
         }while (chon != 0);
     }
