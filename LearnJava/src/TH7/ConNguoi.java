@@ -120,15 +120,14 @@ class PhongBan{
 class main{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int sl = 0,loai =0;
+        int sl ,loai =0,chon;
         ConNguoi ds[];
-        ds = new ConNguoi[sl];
+        ds = new ConNguoi[100];
         System.out.print("Nhap vao so luong nhan vien va hoc vien : ");
         sl = scanner.nextInt();
         for(int i = 0 ; i < ds.length ; i++){
             System.out.println("Nhap vao 1 de nhap nhan vien , nhap vao 2 de nhap hoc vien : ");
             System.out.print("Xin moi nhap : ");
-            int chon = 0;
             chon =  scanner.nextInt();
             if (chon != 1 || chon !=2){
                 break;
@@ -163,6 +162,5 @@ class main{
                 ds[j].xuat();
             }
         }
-
     }
 }

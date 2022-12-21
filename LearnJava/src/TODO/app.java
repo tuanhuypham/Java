@@ -1,4 +1,5 @@
 package TODO;
+import java.util.*;
 /**
  * 1 [ ] Di cho
  * 2 [x] Tap the duc
@@ -14,10 +15,8 @@ package TODO;
 import TH2.Array;
 import TH3.Main;
 
-import java.util.LinkedHashSet;
 import java.util.random.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * TodoList {
@@ -39,30 +38,14 @@ import java.util.Scanner;
 class TodoItems{
     private String content;
     private boolean ischeck;
-
-    public int state;
-
     public TodoItems(){
-        ischeck = false;
         content = "";
-        if(state == 1){
-            ischeck = true;
-        }
+        ischeck = false;
     }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
     public TodoItems(String content, boolean ischeck) {
         this.content = content;
         this.ischeck = ischeck;
     }
-
     public String getContent() {
         return content;
     }
@@ -78,76 +61,115 @@ class TodoItems{
     public void setIscheck(boolean ischeck) {
         this.ischeck = ischeck;
     }
-//    public void add(){
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Nhap vao cong viec : ");
-//        content = scanner.nextLine();
-//        System.out.print("Nhap vao trang thai cong viec : 1 la da xong || 0 la chua ");
-//        state = scanner.nextInt();
-//    }
-    public void show(){
-        if (state == 0){
-            System.out.println(content+"[ ]");
-        }else if (state == 1){
-            System.out.println(content+"[x]");
-        }
+
+    @Override
+    public String toString() {
+        return String.format(""+content);
     }
 }
 class TodoList{
     private ArrayList<TodoItems> list;
+
+    public TodoList(){
+        this.list = new ArrayList<>();
+    }
     public TodoList(ArrayList<TodoItems> list) {
         this.list = list;
     }
-
-    public TodoList() {
-        this.list = new ArrayList<TodoItems>();
+    public void addList(TodoItems td){
+        this.list.add(td);
     }
-    public void themcongviec(TodoItems todo){
-        this.list.add(todo);
-    }
-//    public void addList(){
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("nhap vao so luong cong viec : ");
-//        amount = scanner.nextInt();
-//
-//        for(int i = 0; i < amount ; i++){
-//            list[i] = new TodoItems();
-//            list[i].add();
-//        }
-//    }
-//    public void showList(){
-//        for (int i = 0; i < amount ; i++){
-//            System.out.print(i+1+". ");
-//            list[i].show();
-//        }
-//    }
-}
-public class app {
-    public static void main(String[] args) {
-        int chon;
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.println("1 : Them cong viec");
-            System.out.println("2 : show list cong viec");
-            System.out.println("1 : Them moi mot cong viec");
-            System.out.println("0 : thoat todo");
-            System.out.print("Moi chon chuc nang : ");
-            chon = scanner.nextInt();
-            switch (chon){
-                case 1:
-
-                    break;
-//                case 2:
-//                    break;
-                default:
-                    if (chon == 0){
-                        System.out.println("Da thoat !!!");
-                        break;
-                    }
+    public void showList(){
+        System.out.println();
+        System.out.println("----- List -----");
+        for (TodoItems todo:list) {
+            if (todo.isIscheck() == false){
+                System.out.println("[] "+todo);
             }
-        }while (chon != 0);
+            else {
+                System.out.println("[x] "+todo);
+            }
+        }
+        System.out.println();
+    }
+    public void removeLlist(int i){
+        for (int j = 0; j < list.size(); j++) {
+            if (j == i){
+                list.remove(j);
+                break;
+            }
+        }
+    }
+    public void toggle(int i){
+        boolean check = true;
+        for (int j = 0; j < list.size(); j++) {
+            if (j == i){
+                list.get(j).setIscheck(check);
+                break;
+            }
+        }
+    }
+    public void unToggle(int i){
+        TodoItems t;
+        boolean check = false;
+        for (int j = 0; j < list.size(); j++) {
+            if (j == i){
+                list.get(j).setIscheck(check);
+                break;
+            }
+        }
     }
 }
+
+public class app {
+        public static void main(String[] args) {
+            TodoList todoList = new TodoList();
+            boolean check = false;
+            int state;
+            int index = 0;
+            Scanner scanner = new Scanner(System.in);
+            int chon = 0;
+            do {
+                System.out.println("1. Them cong viec ");
+                System.out.println("2. ShowList cong viec ");
+                System.out.println("3. Check cong viec ");
+                System.out.println("4. Uncheck cong viec ");
+                System.out.println("5. Remove cong viec ");
+                System.out.println("0. de thoat");
+                System.out.print("hay chon chuc nang : ");
+                chon = scanner.nextInt();
+                switch (chon){
+                    case 1:
+                        scanner.nextLine();
+                        System.out.print("Nhap vao cong viec : ");
+                        String CongViec = scanner.nextLine();
+                        TodoItems t = new TodoItems(CongViec,check);
+                        todoList.addList(t);
+
+                        break;
+                    case 2:
+                        todoList.showList();
+                        break;
+                    case 3:
+                        System.out.print("nhap vao vi tri check : ");
+                        index = scanner.nextInt();
+                        todoList.toggle(index);
+                        break;
+                    case 4:
+                        System.out.print("nhap vao vi tri uncheck : ");
+                        index = scanner.nextInt();
+                        todoList.unToggle(index);
+                        break;
+                    case 5:
+                        System.out.print("nhap vao vi tri xoa : ");
+                        index = scanner.nextInt();
+                        todoList.removeLlist(index);
+                        break;
+                }
+            }while (chon != 0);
+        }
+}
+///
 class main{
     // 1 mang A 50 phan tu, sinh ra 50 so ngay nhien
     // tao ra 1 mang moi voi tu mang tren ma cac phan tu trong do khong trung lap
@@ -240,6 +262,19 @@ class main{
         min3phantu();
         System.out.println("mang co phan tu vi tri le ");
         mangvitrile();
+    }
+}
 
+class nhiphan{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap vao N : ");
+        int n = sc.nextInt();
+        String NhiPhan = "";
+        while (n > 0){
+            NhiPhan = (n%2)+NhiPhan;
+            n = n / 2;
+        }
+        System.out.println("He nhi phan : "+NhiPhan);
     }
 }
